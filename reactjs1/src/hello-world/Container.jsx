@@ -4,7 +4,7 @@ export default function Container({ children }) {
       <h1>Parent Page</h1>
       {children}
       <footer>
-        <p>2025 Belajar dari Programmer Zaman Now</p>
+        <p>2025 Belajar React JS dari Programmer Zaman Now</p>
       </footer>
     </div>
   );

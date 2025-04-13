@@ -1,17 +1,34 @@
-import { useState } from 'react';
+import Quest from './Quest';
 
 export default function QuestList() {
-  const initial = ['Belajar HTML', 'Belajar CSS', 'Belajar JavaScript'];
-  const [quests, setQuests] = useState(initial);
+  const data = [
+    {
+      id: 0,
+      text: 'Belajar HTML',
+      isCompleted: false,
+    },
+    {
+      id: 1,
+      text: 'Belajar CSS',
+      isCompleted: false,
+    },
+    {
+      id: 2,
+      text: 'Belajar JavaScript',
+      isCompleted: true,
+    },
+    {
+      id: 3,
+      text: 'Belajar React JS',
+      isCompleted: true,
+    },
+  ];
 
   return (
-    <div>
-      <h3>Quest List</h3>
-      <ul>
-        {quests.map((quest) => (
-          <li>{quest}</li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {data.map((quest) => (
+        <Quest key={quest.id} {...quest} />
+      ))}
+    </ul>
   );
 }
