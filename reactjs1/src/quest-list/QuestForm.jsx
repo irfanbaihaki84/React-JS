@@ -13,7 +13,6 @@ export default function QuestForm({
           type="text"
           placeholder="Quest..."
         />
-        <br />
         <button onClick={handleQuestClick}>Submit</button>
       </form>
     </div>
