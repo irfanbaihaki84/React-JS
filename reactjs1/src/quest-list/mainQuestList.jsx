@@ -1,11 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import QuestForm from './QuestForm';
-import QuestList from './QuestList';
+import AppQuest from './AppQuest';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <QuestForm />
-    <QuestList />
+    <AppQuest />
   </StrictMode>
 );

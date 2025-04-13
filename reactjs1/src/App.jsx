@@ -1,15 +1,13 @@
 import './App.css';
 import HelloWorld from './hello-world/HelloWorld';
-// import QuestForm from './quest-list/QuestForm';
-import QuestList from './quest-list/QuestList';
+import AppQuest from './quest-list/AppQuest';
 
 function App() {
   return (
     <>
       <h1>APP</h1>
       <HelloWorld />
-      {/* <QuestForm /> */}
-      <QuestList />
+      <AppQuest />
     </>
   );
 }

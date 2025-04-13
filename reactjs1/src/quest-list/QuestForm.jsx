@@ -1,19 +1,21 @@
-export default function QuestForm() {
-  function handlerSubmit() {
-    return 'uncompleted!';
-  }
+export default function QuestForm({
+  item,
+  handleQuestChange,
+  handleQuestClick,
+}) {
   return (
-    <>
-      <h1>QUEST LIST</h1>
+    <div>
+      <h1>Quest Form</h1>
       <form>
-        <label>Input Quest: </label>
         <input
-          onChange={handlerSubmit()}
+          value={item}
+          onChange={handleQuestChange}
           type="text"
-          placeholder="Mausukan Tugas...✅"
+          placeholder="Quest..."
         />
-        <button type="submit">Submit</button>
+        <br />
+        <button onClick={handleQuestClick}>Submit</button>
       </form>
-    </>
+    </div>
   );
 }
