@@ -15,6 +15,7 @@ export default function QuestForm({
         />
         <button onClick={handleQuestClick}>Submit</button>
       </form>
+      <button>Reset</button>
     </div>
   );
 }
