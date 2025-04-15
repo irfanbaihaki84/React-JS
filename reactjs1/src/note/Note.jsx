@@ -1,46 +1,68 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { NoteContext } from './NoteContext.jsx';
 
-export default function Note({ note, onChange, onDelete }) {
-  //   console.log('note ', note);
+const Note = ({ note }) => {
   const [isEditing, setIsEditing] = useState(false);
-  let component;
+  const [editedTitle, setEditedTitle] = useState(note.title);
+  const { deleteNote, toggleNote, updateNoteTitle } = useContext(NoteContext);
 
-  function handleChangeText(e) {
-    const newNote = {
-      ...note,
-      text: e.target.value,
-    };
-    onChange(newNote);
-  }
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
 
-  if (isEditing) {
-    component = (
-      <>
-        <input value={note.text} onChange={handleChangeText} />
-        <button onClick={() => setIsEditing(false)}>Save</button>
-      </>
-    );
-  } else {
-    component = (
-      <>
-        {note.text}
-        <button onClick={() => setIsEditing(true)}>Edit</button>
-      </>
-    );
-  }
+  const handleSave = () => {
+    if (editedTitle.trim()) {
+      updateNoteTitle(note.id, editedTitle);
+      setIsEditing(false);
+    }
+  };
 
-  function handleChangeDone(e) {
-    const newNote = {
-      ...note,
-      done: e.target.checked,
-    };
-    onChange(newNote);
-  }
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    } else if (e.key === 'Escape') {
+      setEditedTitle(note.title);
+      setIsEditing(false);
+    }
+  };
+
   return (
-    <label>
-      <input checked={note.done} onChange={handleChangeDone} type="checkbox" />
-      {component}
-      <button onClick={() => onDelete(note)}>Delete</button>
-    </label>
+    <div className={`task ${note.completed ? 'completed' : ''}`}>
+      <div className="task-info">
+        <input
+          type="checkbox"
+          checked={note.completed}
+          onChange={() => toggleNote(note.id)}
+        />
+
+        {isEditing ? (
+          <input
+            type="text"
+            value={editedTitle}
+            onChange={(e) => setEditedTitle(e.target.value)}
+            onBlur={handleSave}
+            onKeyDown={handleKeyDown}
+            autoFocus
+            className="edit-input"
+          />
+        ) : (
+          <span onDoubleClick={handleEdit} className="task-title">
+            {note.title}
+          </span>
+        )}
+      </div>
+      <div className="task-actions">
+        {!isEditing && (
+          <button className="edit-btn" onClick={handleEdit}>
+            Edit
+          </button>
+        )}
+        <button className="delete-btn" onClick={() => deleteNote(note.id)}>
+          Delete
+        </button>
+      </div>
+    </div>
   );
-}
+};
+
+export default Note;

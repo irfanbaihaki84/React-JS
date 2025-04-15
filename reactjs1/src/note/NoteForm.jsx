@@ -1,28 +1,29 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { NoteContext } from './NoteContext.jsx';
 
-export default function NoteForm({ onAddNote }) {
-  const [text, setText] = useState('');
+const NoteForm = () => {
+  const [title, setTitle] = useState('');
+  const { addNote } = useContext(NoteContext);
 
-  function handleChange(e) {
-    setText(e.target.value);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (title.trim()) {
+      addNote(title);
+      setTitle('');
+    }
+  };
 
-  function handleClick() {
-    setText('');
-    onAddNote(text);
-  }
   return (
-    <>
-      <h3>NoteForm Page</h3>
-      {/* <form> */}
+    <form onSubmit={handleSubmit} className="task-form">
       <input
-        value={text}
-        onChange={handleChange}
         type="text"
-        placeholder="Add Note..."
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Add a new task..."
       />
-      <button onClick={handleClick}>Add</button>
-      {/* </form> */}
-    </>
+      <button type="submit">Add Task</button>
+    </form>
   );
-}
+};
+
+export default NoteForm;
