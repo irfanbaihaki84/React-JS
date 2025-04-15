@@ -14,6 +14,7 @@ export default defineConfig({
         index: 'index.html',
         hello_world: 'hello-world.html',
         contact: 'contact.html',
+        task_list: 'task-list.html',
       },
     },
   },

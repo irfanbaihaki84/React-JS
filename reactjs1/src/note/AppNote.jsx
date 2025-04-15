@@ -1,6 +1,7 @@
 import { useImmer } from 'use-immer';
 import NoteForm from './NoteForm';
 import NoteList from './NoteList';
+import { useReducer } from 'react';
 
 let id = 0;
 const initialNotes = [
@@ -26,8 +27,34 @@ const initialNotes = [
   },
 ];
 
+// function notesReducer(notes, action) {
+//   switch (action.type) {
+//     case 'ADD_NOTE':
+//       return [
+//         ...notes,
+//         {
+//           id: id++,
+//           text: action.text,
+//           done: false,
+//         },
+//       ];
+
+//     case 'CHANGE_NOTE':
+//       return notes.map((note) =>
+//         note.id === action.id
+//           ? { ...notes, text: action.text, done: action.done }
+//           : note
+//       );
+//     case 'DELETE_NOTE':
+//       return notes.filter((note) => note.id !== action.id);
+//     default:
+//       return notes;
+//   }
+// }
+
 function AppNote() {
   const [notes, setNotes] = useImmer(initialNotes);
+  //   const [notes, dispatch] = useReducer(notesReducer, initialNotes);
 
   function handleAddNote(text) {
     console.log('handleAddNote<appNote ', text);
@@ -38,6 +65,10 @@ function AppNote() {
         done: false,
       });
     });
+    // dispatch({
+    //   type: 'ADD_NOTE',
+    //   text: text,
+    // });
   }
 
   function handleChangeNote(note) {
@@ -46,8 +77,13 @@ function AppNote() {
       const index = draft.findIndex((item) => {
         item.id === note.id;
       });
-      draft[index] = note;
+      draft[index].text = note.text;
+      draft[index].done = note.done;
     });
+    // dispatch({
+    //   ...note,
+    //   type: 'CHANGE_NOTE',
+    // });
   }
 
   function handleDeleteNote(note) {
@@ -57,6 +93,10 @@ function AppNote() {
       });
       draft.splice(index, 1);
     });
+    // dispatch({
+    //   type: 'DELETE_NOTE',
+    //   id: note.id,
+    // });
   }
   return (
     <>

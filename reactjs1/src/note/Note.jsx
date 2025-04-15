@@ -37,10 +37,10 @@ export default function Note({ note, onChange, onDelete }) {
     onChange(newNote);
   }
   return (
-    <div>
+    <label>
       <input checked={note.done} onChange={handleChangeDone} type="checkbox" />
       {component}
       <button onClick={() => onDelete(note)}>Delete</button>
-    </div>
+    </label>
   );
 }

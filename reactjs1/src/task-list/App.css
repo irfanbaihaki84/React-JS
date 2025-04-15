@@ -1,0 +1,121 @@
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.task-form {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+}
+
+.task-form button {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.task-form button:hover {
+  background-color: #45a049;
+}
+
+.task-list {
+  background-color: #dddddd;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.task.completed {
+  /* opacity: 0.7; */
+  background-color: salmon;
+}
+
+.task.completed .task-info span {
+  text-decoration: line-through;
+}
+
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Add these new styles to your existing App.css */
+
+.task-title {
+  flex: 1;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.task-title:hover {
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 5px;
+  font-size: inherit;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.task-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.edit-btn {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #0b7dda;
+}
