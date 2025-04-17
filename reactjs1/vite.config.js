@@ -15,6 +15,7 @@ export default defineConfig({
         hello_world: 'hello-world.html',
         contact: 'contact.html',
         task_list: 'task-list.html',
+        quest: 'quest.html',
       },
     },
   },
