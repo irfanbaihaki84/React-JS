@@ -3,9 +3,34 @@ import { authReducer } from '../reducers/authReducer';
 import { questReducer } from '../reducers/questReducer';
 
 const initialUsers = [
-  { id: 1, username: 'admin', password: 'admin123', role: 'admin' },
-  { id: 2, username: 'lecturer1', password: 'lecturer123', role: 'lecturer' },
-  { id: 3, username: 'student1', password: 'student123', role: 'student' },
+  {
+    id: 1,
+    username: 'admin',
+    password: 'admin123',
+    role: 'admin',
+    status: true,
+  },
+  {
+    id: 2,
+    username: 'lecturer1',
+    password: 'lecturer123',
+    role: 'lecturer',
+    status: true,
+  },
+  {
+    id: 3,
+    username: 'student1',
+    password: 'student123',
+    role: 'student',
+    status: true,
+  },
+  {
+    id: 4,
+    username: 'student2',
+    password: 'student234',
+    role: 'student',
+    status: true,
+  },
 ];
 
 const initialQuests = [
@@ -14,7 +39,7 @@ const initialQuests = [
     title: 'Complete React Project',
     description: 'Build a quest manager app',
     assignedTo: [3],
-    dueDate: '2023-12-31',
+    dueDate: '2025-04-31',
     status: 'pending',
     createdBy: 2,
   },
@@ -23,7 +48,7 @@ const initialQuests = [
     title: 'Learn Redux',
     description: 'Study state management',
     assignedTo: [3],
-    dueDate: '2023-11-30',
+    dueDate: '2025-04-30',
     status: 'in-progress',
     createdBy: 2,
   },
@@ -32,7 +57,7 @@ const initialQuests = [
     title: 'Review Assignments',
     description: 'Grade student submissions',
     assignedTo: [2],
-    dueDate: '2023-11-15',
+    dueDate: '2025-04-15',
     status: 'completed',
     createdBy: 1,
   },
@@ -45,6 +70,10 @@ export const AppProvider = ({ children }) => {
     users: initialUsers,
     currentUser: null,
     isAuthenticated: false,
+  });
+
+  const [userState, userDispatch] = useReducer(authReducer, {
+    users: initialUsers,
   });
 
   const [questState, questDispatch] = useReducer(questReducer, {
@@ -77,12 +106,24 @@ export const AppProvider = ({ children }) => {
     return newUser;
   };
 
+  const addUser = (newUser) => {
+    userDispatch({ type: 'ADD_USER', payload: { newUser } });
+  };
+
   const addQuest = (newQuest) => {
     questDispatch({ type: 'ADD_QUEST', payload: { newQuest } });
   };
 
+  const updateUser = (userId, updates) => {
+    userDispatch({ type: 'UPDATE_USER', payload: { userId, updates } });
+  };
+
   const updateQuest = (questId, updates) => {
     questDispatch({ type: 'UPDATE_QUEST', payload: { questId, updates } });
+  };
+
+  const deleteUser = (userId) => {
+    userDispatch({ type: 'DELETE_USER', payload: { userId } });
   };
 
   const deleteQuest = (questId) => {
@@ -93,10 +134,14 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         ...authState,
+        ...userState,
         ...questState,
         login,
         logout,
         register,
+        addUser,
+        updateUser,
+        deleteUser,
         addQuest,
         updateQuest,
         deleteQuest,

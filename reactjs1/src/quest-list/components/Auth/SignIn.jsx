@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppContext } from '../../context/AppContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
@@ -16,6 +16,10 @@ const SignIn = () => {
     } else {
       setError('Invalid username or password');
     }
+  };
+
+  const handleSignUp = () => {
+    navigate('/signup');
   };
 
   return (
@@ -43,6 +47,7 @@ const SignIn = () => {
         </div>
         <button type="submit">Sign In</button>
       </form>
+      <Link onClick={handleSignUp}>Create New User ?</Link>
     </div>
   );
 };

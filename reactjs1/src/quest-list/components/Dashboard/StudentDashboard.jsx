@@ -3,7 +3,7 @@ import { useAppContext } from '../../context/AppContext';
 import QuestList from '../Quest/QuestList';
 
 const StudentDashboard = () => {
-  const { currentUser, quests, logout } = useAppContext();
+  const { currentUser, quests } = useAppContext();
   const studentQuests = quests.filter((q) =>
     q.assignedTo.includes(currentUser.id)
   );

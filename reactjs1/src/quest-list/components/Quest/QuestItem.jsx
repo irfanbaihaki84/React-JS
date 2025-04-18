@@ -16,26 +16,28 @@ const QuestItem = ({ quest }) => {
 
   return (
     <div className={`quest-item ${quest.status}`}>
-      {/* <h3>{quest.title}</h3> */}
-      <h3>
-        <Link to={`/quest/${quest.id}`}>{quest.title}</Link>
-      </h3>
-      <p>{quest.description}</p>
-      <div className="quest-meta">
-        <span>Due: {quest.dueDate}</span>
-        <span>Created by: {getCreatorName(quest.createdBy)}</span>
-        <span>Status: {quest.status}</span>
-      </div>
-
       {currentUser.role === 'student' && (
-        <div className="status-actions">
-          <button onClick={() => handleStatusChange('pending')}>Pending</button>
-          <button onClick={() => handleStatusChange('in-progress')}>
-            In Progress
-          </button>
-          <button onClick={() => handleStatusChange('completed')}>
-            Complete
-          </button>
+        <div>
+          <h3>
+            <Link to={`/quest/${quest.id}`}>{quest.title}</Link>
+          </h3>
+          <p>{quest.description}</p>
+          <div className="quest-meta">
+            <span>Due: {quest.dueDate}</span>
+            <span>Created by: {getCreatorName(quest.createdBy)}</span>
+            <span>Status: {quest.status}</span>
+          </div>
+          <div className="status-actions">
+            <button onClick={() => handleStatusChange('pending')}>
+              Pending
+            </button>
+            <button onClick={() => handleStatusChange('in-progress')}>
+              In Progress
+            </button>
+            <button onClick={() => handleStatusChange('completed')}>
+              Complete
+            </button>
+          </div>
         </div>
       )}
 

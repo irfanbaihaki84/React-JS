@@ -17,6 +17,25 @@ export const authReducer = (state, action) => {
         ...state,
         users: [...state.users, action.payload.newUser],
       };
+    case 'ADD_USER':
+      return {
+        ...state,
+        users: [...state.users, action.payload.newUser],
+      };
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        users: state.users.map((user) =>
+          user.id === action.payload.userId
+            ? { ...user, ...action.payload.updates }
+            : user
+        ),
+      };
+    case 'DELETE_USER':
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== action.payload.userId),
+      };
     default:
       return state;
   }
