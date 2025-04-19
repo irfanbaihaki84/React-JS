@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { useAppContext } from '../../context/AppContext';
+import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
+
   const {
+    currentUser,
     quests,
     users,
     addQuest,
@@ -21,6 +25,7 @@ const AdminDashboard = () => {
     assignedTo: [],
     dueDate: '',
     status: 'pending',
+    createdBy: currentUser.id,
   });
 
   // State for user management
@@ -63,7 +68,7 @@ const AdminDashboard = () => {
       addQuest({
         ...questForm,
         id: Date.now(),
-        createdBy: 'admin',
+        createdBy: currentUser.id,
       });
     }
     resetQuestForm();
@@ -139,9 +144,16 @@ const AdminDashboard = () => {
     }));
   };
 
+  const handleSignOut = () => {
+    navigate('/signin');
+  };
+
   return (
     <div className="admin-dashboard">
       <h1>Admin Dashboard</h1>
+      <button className="btn-logout" onClick={handleSignOut}>
+        Sign Out
+      </button>
 
       {/* Navigation Tabs */}
       <div className="tabs">
@@ -260,6 +272,7 @@ const AdminDashboard = () => {
                     <th>Due Date</th>
                     <th>Status</th>
                     <th>Assigned To</th>
+                    <th>CreatedBy</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -284,6 +297,7 @@ const AdminDashboard = () => {
                           ) : null;
                         })}
                       </td>
+                      <td>{quest.createdBy}</td>
                       <td className="actions">
                         <button onClick={() => editQuest(quest)}>Edit</button>
                         <button
