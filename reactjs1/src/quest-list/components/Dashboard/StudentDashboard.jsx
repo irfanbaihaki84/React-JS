@@ -3,7 +3,7 @@ import { useAppContext } from '../../context/AppContext';
 import QuestList from '../Quest/QuestList';
 
 const StudentDashboard = () => {
-  const { currentUser, quests } = useAppContext();
+  const { currentUser, quests, logout } = useAppContext();
   const studentQuests = quests.filter((q) =>
     q.assignedTo.includes(currentUser.id)
   );
@@ -11,18 +11,29 @@ const StudentDashboard = () => {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
+    logout();
     navigate('/signin');
   };
 
   return (
     <div className="dashboard">
-      <h1>Student Dashboard</h1>
+      <div className="dashboard-header">
+        <h1>Student Dashboard</h1>
+        <div className="user-info">
+          <span>Welcome, {currentUser?.username}</span>
+          <button onClick={handleSignOut} className="sign-out-btn">
+            Sign Out
+          </button>
+        </div>
+      </div>
+      {/* <h1>Student Dashboard</h1>
       <div className="stats">
         <h3>{currentUser.username}</h3>
         <button className="btn-logout" onClick={handleSignOut}>
           Sign Out
         </button>
-      </div>
+      </div> */}
+
       <div className="stats">
         <div>Your Quests: {studentQuests.length}</div>
         <div>

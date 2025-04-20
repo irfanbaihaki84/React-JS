@@ -17,7 +17,7 @@ const QuestDetail = () => {
       <div className="quest-text">Status: {quest.status}</div>
       <div className="quest-text">Due Date: {quest.dueDate}</div>
       <div className="btn-group">
-        <Link to={`/studentdashboard/${quest.id}`} className="btn-logout">
+        <Link to={`/studentdashboard/${quest.id}`} className="sign-out-btn">
           Back
         </Link>
       </div>

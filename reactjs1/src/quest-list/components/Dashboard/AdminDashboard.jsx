@@ -15,6 +15,7 @@ const AdminDashboard = () => {
     addUser,
     updateUser,
     deleteUser,
+    logout,
   } = useAppContext();
 
   // State for quest management
@@ -145,15 +146,25 @@ const AdminDashboard = () => {
   };
 
   const handleSignOut = () => {
+    logout();
     navigate('/signin');
   };
 
   return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+    <div className="dashboard">
+      <div className="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <div className="user-info">
+          <span>Welcome, {currentUser?.username}</span>
+          <button onClick={handleSignOut} className="sign-out-btn">
+            Sign Out
+          </button>
+        </div>
+      </div>
+      {/* <h1>Admin Dashboard</h1>
       <button className="btn-logout" onClick={handleSignOut}>
         Sign Out
-      </button>
+      </button> */}
 
       {/* Navigation Tabs */}
       <div className="tabs">
