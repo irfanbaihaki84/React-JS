@@ -4,6 +4,7 @@ import { useAppContext } from '../../context/AppContext';
 const PelangganDashboard = () => {
   const { state } = useAppContext();
   const { trans, dt_trans, alamat, currentUser } = state;
+  console.log('pelangganDashboard ', currentUser);
 
   const userTransactions = trans.filter((t) =>
     t.cusId.includes(currentUser?.id)

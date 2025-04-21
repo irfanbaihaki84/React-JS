@@ -66,6 +66,7 @@ export const authReducer = (state, action) => {
               }
             : user
         ),
+        isAuthenticated: true,
         notification: { type: 'success', message: 'User updated successfully' },
       };
 
@@ -73,6 +74,7 @@ export const authReducer = (state, action) => {
       return {
         ...state,
         users: state.users.filter((user) => user.id !== action.payload),
+        isAuthenticated: true,
         notification: { type: 'success', message: 'User deleted successfully' },
       };
 

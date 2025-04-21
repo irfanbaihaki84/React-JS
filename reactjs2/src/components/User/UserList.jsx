@@ -14,7 +14,12 @@ const UserList = () => {
   return (
     <div className="list-container">
       <div className="list-header">
-        <h2>User List</h2>
+        <div>
+          <h2>User List</h2>
+          <Link to="/admin" className="btn-edit">
+            Back
+          </Link>
+        </div>
         <Link to="/admin/users/add" className="btn-add">
           Add New User
         </Link>

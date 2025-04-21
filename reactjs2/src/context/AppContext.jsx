@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
-import authReducer from '../reducers/authReducer.js';
-import beliReducer from '../reducers/beliReducer.js';
+import { authReducer } from '../reducers/authReducer';
+import { beliReducer } from '../reducers/beliReducer';
 
 // Create context
 const AppContext = createContext();
@@ -232,6 +232,7 @@ const getInitialState = () => {
       },
     ],
     currentUser: null,
+    isAuthenticated: false,
     cart: [],
     notification: null,
   };
@@ -270,6 +271,7 @@ const rootReducer = (state, action) => {
 // Context provider component
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, getInitialState());
+  console.log('appContext ', state);
 
   // Persist state to localStorage whenever it changes
   useEffect(() => {
@@ -290,8 +292,32 @@ export const AppProvider = ({ children }) => {
     persistState();
   }, [state]);
 
+  const login = (username, password) => {
+    const user = state.users.find(
+      (u) => u.username === username && u.password === password
+    );
+    if (user) {
+      dispatch({ type: 'LOGIN', payload: { user } });
+      return true;
+    }
+    return false;
+  };
+
+  const logup = (username, password, email) => {
+    const newUser = {
+      id: state.users.length + 1,
+      username,
+      password,
+      email,
+      role: 'pelanggan',
+      status: true,
+    };
+    dispatch({ type: 'SIGNUP', payload: { newUser } });
+    return newUser;
+  };
+
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
+    <AppContext.Provider value={{ state, dispatch, login, logup }}>
       {children}
     </AppContext.Provider>
   );

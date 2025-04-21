@@ -3,22 +3,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    email: '',
-  });
-  const { dispatch } = useAppContext();
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  // const [formData, setFormData] = useState({
+  //   username: '',
+  //   password: '',
+  //   email: '',
+  // });
+  const { dispatch, logup } = useAppContext();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: 'SIGNUP', payload: formData });
-    navigate('/pelanggan');
+    // dispatch({ type: 'SIGNUP', payload: formData });
+    console.log('signUp ', username + '-' + password + '-' + email);
+    logup(username, password, email);
+    navigate('/signin');
   };
 
   return (
@@ -30,8 +35,8 @@ const SignUp = () => {
           <input
             type="text"
             name="username"
-            value={formData.username}
-            onChange={handleChange}
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
             required
           />
         </div>
@@ -40,8 +45,8 @@ const SignUp = () => {
           <input
             type="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
@@ -50,8 +55,8 @@ const SignUp = () => {
           <input
             type="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>

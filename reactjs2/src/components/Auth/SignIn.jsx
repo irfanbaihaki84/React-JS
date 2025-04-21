@@ -5,17 +5,27 @@ import { useAppContext } from '../../context/AppContext';
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { dispatch } = useAppContext();
+  const [error, setError] = useState('');
+  const { dispatch, login } = useAppContext();
   const navigate = useNavigate();
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch({ type: 'LOGIN', payload: { username, password } });
+  //   const user = JSON.parse(localStorage.getItem('currentUser'));
+  //   if (user) {
+  //     if (user.role === 'admin') navigate('/admin');
+  //     else if (user.role === 'kasir') navigate('/kasir');
+  //     else navigate('/pelanggan');
+  //   }
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: 'LOGIN', payload: { username, password } });
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (user) {
-      if (user.role === 'admin') navigate('/admin');
-      else if (user.role === 'kasir') navigate('/kasir');
-      else navigate('/pelanggan');
+    if (login(username, password)) {
+      navigate('/admin');
+    } else {
+      setError('Invalid username or password');
     }
   };
 

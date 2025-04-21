@@ -14,7 +14,12 @@ const ItemList = () => {
   return (
     <div className="list-container">
       <div className="list-header">
-        <h2>Item List</h2>
+        <div>
+          <h2>Item List</h2>
+          <Link to="/admin" className="btn-edit">
+            Back
+          </Link>
+        </div>
         <Link to="/admin/items/add" className="btn-add">
           Add New Item
         </Link>
