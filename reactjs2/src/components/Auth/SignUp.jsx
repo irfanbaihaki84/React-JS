@@ -1,69 +1,76 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 
 const SignUp = () => {
-  const [username, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  // const [formData, setFormData] = useState({
-  //   username: '',
-  //   password: '',
-  //   email: '',
-  // });
-  const { dispatch, logup } = useAppContext();
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    email: '',
+  });
+  const [error, setError] = useState('');
+  const { signUp, users } = useAppContext();
   const navigate = useNavigate();
 
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch({ type: 'SIGNUP', payload: formData });
-    console.log('signUp ', username + '-' + password + '-' + email);
-    logup(username, password, email);
-    navigate('/signin');
+    if (users.some((user) => user.username === formData.username)) {
+      setError('Username already exists');
+      return;
+    }
+    if (users.some((user) => user.email === formData.email)) {
+      setError('Email already exists');
+      return;
+    }
+    const newUser = signUp(formData);
+    if (newUser) {
+      navigate('/signin');
+    }
   };
 
   return (
     <div className="auth-container">
       <h2>Sign Up</h2>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Username</label>
+        <div>
+          <label>Username:</label>
           <input
             type="text"
             name="username"
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
+            value={formData.username}
+            onChange={handleChange}
             required
           />
         </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email</label>
+        <div>
+          <label>Email:</label>
           <input
             type="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             required
           />
         </div>
         <button type="submit">Sign Up</button>
       </form>
       <p>
-        Already have an account? <Link to="/signin">Sign In</Link>
+        Already have an account? <a href="/signin">Sign In</a>
       </p>
     </div>
   );

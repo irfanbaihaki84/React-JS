@@ -3,7 +3,7 @@ export const authReducer = (state, action) => {
     case 'LOGIN':
       return {
         ...state,
-        currentUser: action.payload.user,
+        currentUser: action.payload,
         isAuthenticated: true,
       };
     case 'LOGOUT':
@@ -15,7 +15,7 @@ export const authReducer = (state, action) => {
     case 'REGISTER':
       return {
         ...state,
-        users: [...state.users, action.payload.newUser],
+        users: [...state.users, action.payload],
       };
     case 'ADD_USER':
       return {
@@ -34,7 +34,7 @@ export const authReducer = (state, action) => {
     case 'DELETE_USER':
       return {
         ...state,
-        users: state.users.filter((user) => user.id !== action.payload.userId),
+        users: state.users.filter((user) => user.id !== action.payload),
       };
     default:
       return state;

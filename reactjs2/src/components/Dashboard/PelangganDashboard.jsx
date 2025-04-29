@@ -1,110 +1,109 @@
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 
 const PelangganDashboard = () => {
-  const { state } = useAppContext();
-  const { trans, dt_trans, alamat, currentUser } = state;
-  console.log('pelangganDashboard ', currentUser);
+  const { currentUser, trans, dt_trans, alamat, signOut } = useAppContext();
+  const navigate = useNavigate();
 
-  const userTransactions = trans.filter((t) =>
-    t.cusId.includes(currentUser?.id)
+  useEffect(() => {
+    if (!currentUser || currentUser.role !== 'pelanggan') {
+      navigate('/signin');
+      return null;
+    }
+  }, []);
+
+  const userTransactions = trans.filter(
+    (tran) => tran.cusId && tran.cusId.includes(currentUser.id)
   );
-  const userAddresses = alamat.filter((a) =>
-    a.userId.includes(currentUser?.id)
-  );
+
+  const getUserAddress = () => {
+    return alamat.find(
+      (addr) => addr.userId && addr.userId.includes(currentUser.id)
+    );
+  };
 
   return (
     <div className="dashboard">
       <header>
-        <h2>Pelanggan Dashboard</h2>
+        <h1>Pelanggan Dashboard</h1>
         <div className="user-info">
-          <span>Welcome, {currentUser?.username}</span>
-          <Link to="/signout" className="btn-signout">
-            Sign Out
-          </Link>
+          <span>Welcome, {currentUser.username}</span>
+          <button onClick={signOut}>Sign Out</button>
         </div>
       </header>
 
-      <div className="pelanggan-container">
-        <div className="user-info-section">
-          <h3>Your Information</h3>
-          <div className="info-card">
+      <div className="section">
+        <section>
+          <h2>My Profile</h2>
+          <div className="profile-info">
             <p>
-              <strong>Username:</strong> {currentUser?.username}
+              <strong>Username:</strong> {currentUser.username}
             </p>
             <p>
-              <strong>Email:</strong> {currentUser?.email}
+              <strong>Email:</strong> {currentUser.email}
             </p>
             <p>
-              <strong>Role:</strong> {currentUser?.role}
+              <strong>Role:</strong> {currentUser.role}
             </p>
+            {getUserAddress() && (
+              <>
+                <p>
+                  <strong>Phone:</strong> {getUserAddress().phone}
+                </p>
+                <p>
+                  <strong>Address:</strong> {getUserAddress().alamat}
+                </p>
+              </>
+            )}
           </div>
+        </section>
 
-          <h3>Your Addresses</h3>
-          {userAddresses.length === 0 ? (
-            <p>No addresses found</p>
-          ) : (
-            <ul className="address-list">
-              {userAddresses.map((addr) => (
-                <li key={addr.id}>
-                  <p>
-                    <strong>Phone:</strong> {addr.phone}
-                  </p>
-                  <p>
-                    <strong>Address:</strong> {addr.alamat}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        <div className="transactions-section">
-          <h3>Your Transactions</h3>
+        <section>
+          <h2>My Transactions</h2>
           {userTransactions.length === 0 ? (
             <p>No transactions found</p>
           ) : (
-            <div className="transactions-list">
-              {userTransactions.map((t) => {
-                const transactionItems = dt_trans.filter(
-                  (dt) => dt.buyId === t.buyId
-                );
-                return (
-                  <div key={t.id} className="transaction-card">
-                    <div className="transaction-header">
-                      <span>
-                        <strong>ID:</strong> {t.buyId}
-                      </span>
-                      <span>
-                        <strong>Date:</strong> {t.buyTanggal}
-                      </span>
-                      <span>
-                        <strong>Total:</strong> Rp{t.total.toLocaleString()}
-                      </span>
-                    </div>
-                    <div className="transaction-items">
-                      <h4>Items:</h4>
-                      <ul>
-                        {transactionItems.map((dt) => {
-                          const item = state.items.find(
-                            (i) => i.id === dt.item[0]
-                          );
-                          return (
-                            <li key={dt.id}>
-                              {item?.nama} - {dt.qty} x Rp
-                              {dt.harga.toLocaleString()} = Rp
-                              {dt.jumlah.toLocaleString()}
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Buy ID</th>
+                  <th>Date</th>
+                  <th>Total</th>
+                  <th>Payment Method</th>
+                  <th>Items</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userTransactions.map((tran) => {
+                  const transactionItems = dt_trans.filter(
+                    (dt) => dt.buyId === tran.buyId
+                  );
+                  return (
+                    <tr key={tran.id}>
+                      <td>{tran.id}</td>
+                      <td>{tran.buyId}</td>
+                      <td>{tran.buyTanggal}</td>
+                      <td>Rp {tran.total.toLocaleString()}</td>
+                      <td>{tran.bayarCara}</td>
+                      <td>
+                        <ul>
+                          {transactionItems.map((item) => (
+                            <li key={item.id}>
+                              {item.qty} x Item {item.item} (Rp{' '}
+                              {item.harga.toLocaleString()})
                             </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                          ))}
+                        </ul>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );

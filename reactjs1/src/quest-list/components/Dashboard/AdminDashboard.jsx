@@ -36,6 +36,7 @@ const AdminDashboard = () => {
     password: '',
     role: 'student',
   });
+  console.log('handleChange ', JSON.stringify({ ...userForm }));
 
   // State for active tab
   const [activeTab, setActiveTab] = useState('quests');
@@ -84,9 +85,10 @@ const AdminDashboard = () => {
     } else {
       // Add new user
       addUser({
-        ...userForm,
         id: Date.now(),
+        ...userForm,
       });
+      console.log('tes ', addUser);
     }
     resetUserForm();
   };

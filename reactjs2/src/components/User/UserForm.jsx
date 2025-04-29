@@ -1,75 +1,43 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 
-const UserForm = () => {
-  const { id } = useParams();
-  const isEditing = !!id;
-  const navigate = useNavigate();
-  const { state, dispatch } = useAppContext();
-  const { users } = state;
-
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    email: '',
-    role: 'pelanggan',
-    status: true,
-    isActive: true,
-  });
-
-  useEffect(() => {
-    if (isEditing) {
-      const userToEdit = users.find((user) => user.id === parseInt(id));
-      if (userToEdit) {
-        setFormData({
-          username: userToEdit.username,
-          password: userToEdit.password,
-          email: userToEdit.email,
-          role: userToEdit.role,
-          status: userToEdit.status,
-          isActive: userToEdit.isActive,
-        });
-      }
+const UserForm = ({ userToEdit }) => {
+  const [formData, setFormData] = useState(
+    userToEdit || {
+      username: '',
+      password: '',
+      email: '',
+      role: 'pelanggan',
+      status: true,
     }
-  }, [id, isEditing, users]);
+  );
+  const { addUser, updateUser } = useAppContext();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEditing) {
-      dispatch({
-        type: 'UPDATE_USER',
-        payload: {
-          id: parseInt(id),
-          ...formData,
-        },
-      });
+    if (userToEdit) {
+      updateUser(formData);
     } else {
-      const newUser = {
-        ...formData,
-        id: users.length + 1,
-        created_At: new Date().toLocaleDateString('en-GB'),
-        updated_At: null,
-      };
-      dispatch({ type: 'ADD_USER', payload: newUser });
+      addUser(formData);
     }
-    navigate('/admin/users');
+    navigate('/admin-dashboard');
   };
 
   return (
     <div className="form-container">
-      <h2>{isEditing ? 'Edit User' : 'Add New User'}</h2>
+      <h2>{userToEdit ? 'Edit User' : 'Add New User'}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Username</label>
+          <label>Username:</label>
           <input
             type="text"
             name="username"
@@ -79,17 +47,17 @@ const UserForm = () => {
           />
         </div>
         <div className="form-group">
-          <label>Password</label>
+          <label>Password:</label>
           <input
             type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            required
+            required={!userToEdit}
           />
         </div>
         <div className="form-group">
-          <label>Email</label>
+          <label>Email:</label>
           <input
             type="email"
             name="email"
@@ -99,7 +67,7 @@ const UserForm = () => {
           />
         </div>
         <div className="form-group">
-          <label>Role</label>
+          <label>Role:</label>
           <select
             name="role"
             value={formData.role}
@@ -111,26 +79,26 @@ const UserForm = () => {
             <option value="pelanggan">Pelanggan</option>
           </select>
         </div>
-        <div className="form-group checkbox">
-          <label>Status</label>
-          <input
-            type="checkbox"
+        <div className="form-group">
+          <label>Status:</label>
+          <select
             name="status"
-            checked={formData.status}
-            onChange={handleChange}
-          />
+            value={formData.status}
+            onChange={(e) =>
+              setFormData({ ...formData, status: e.target.value === 'true' })
+            }
+            required
+          >
+            <option value={true}>Active</option>
+            <option value={false}>Inactive</option>
+          </select>
         </div>
-        <div className="form-group checkbox">
-          <label>Active</label>
-          <input
-            type="checkbox"
-            name="isActive"
-            checked={formData.isActive}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit">{isEditing ? 'Update User' : 'Add User'}</button>
-        <button type="button" onClick={() => navigate('/admin/users')}>
+        <button type="submit">{userToEdit ? 'Update' : 'Add'} User</button>
+        <button
+          type="button"
+          onClick={() => navigate('/admin-dashboard')}
+          className="cancel"
+        >
           Cancel
         </button>
       </form>

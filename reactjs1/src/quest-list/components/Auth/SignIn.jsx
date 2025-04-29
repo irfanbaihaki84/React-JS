@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // console.log('signIn ', username + ' ' + password);
+
   const [error, setError] = useState('');
   const { login } = useAppContext();
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ const SignIn = () => {
 
   const handleSignUp = () => {
     navigate('/signup');
+    console.log('signUp');
   };
 
   return (

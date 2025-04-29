@@ -139,6 +139,7 @@ export const AppProvider = ({ children }) => {
       quests: questState.quests,
     };
     saveToLocalStorage(dataToStore);
+    // console.log('appContext ', authState);
   }, [authState, questState]);
 
   const login = (username, password) => {
@@ -146,7 +147,7 @@ export const AppProvider = ({ children }) => {
       (u) => u.username === username && u.password === password
     );
     if (user) {
-      authDispatch({ type: 'LOGIN', payload: { user } });
+      authDispatch({ type: 'LOGIN', payload: user });
       return true;
     }
     return false;
@@ -182,7 +183,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const addUser = (newUser) => {
-    userDispatch({ type: 'REGISTER', payload: { newUser } });
+    userDispatch({ type: 'ADD_USER', payload: { newUser } });
   };
 
   const updateUser = (userId, updates) => {
@@ -190,7 +191,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const deleteUser = (userId) => {
-    userDispatch({ type: 'DELETE_USER', payload: { userId } });
+    userDispatch({ type: 'DELETE_USER', payload: userId });
   };
 
   return (

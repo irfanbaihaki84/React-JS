@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 
 const SignOut = () => {
-  const { dispatch } = useAppContext();
+  const { signOut } = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch({ type: 'LOGOUT' });
+    signOut();
     navigate('/signin');
-  }, [dispatch, navigate]);
+  }, [signOut, navigate]);
 
-  return null;
+  return <div>Signing out...</div>;
 };
 
 export default SignOut;

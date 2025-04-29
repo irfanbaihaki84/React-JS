@@ -19,7 +19,9 @@ const AppQuest = () => {
 
   const ProtectedRoute = ({ children }) => {
     if (!isAuthenticated) {
-      return <Navigate to="/signin" replace />;
+      return (
+        <Navigate to="/signin" replace /> || <Navigate to="/signup" replace />
+      );
     }
     return children;
   };

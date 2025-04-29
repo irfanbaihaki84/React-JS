@@ -1,19 +1,32 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
+import UserList from '../User/UserList';
+import ItemList from '../Item/ItemList';
+// import { useEffect } from 'react';
 
 const AdminDashboard = () => {
-  const { state } = useAppContext();
-  const { users, items, trans, dt_trans, alamat, currentUser } = state;
+  const { currentUser, users, items, trans, dt_trans, alamat, signOut } =
+    useAppContext();
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (!currentUser || currentUser.role !== 'admin') {
+  //     navigate('/signin');
+  //   }
+  // }, [currentUser, navigate]);
+
+  if (!currentUser || currentUser.role !== 'admin') {
+    return null; // atau tampilkan loading spinner
+  }
 
   return (
     <div className="dashboard">
       <header>
-        <h2>Admin Dashboard</h2>
+        <h1>Admin Dashboard</h1>
         <div className="user-info">
-          <span>Welcome, {currentUser?.username}</span>
-          <Link to="/signout" className="btn-signout">
-            Sign Out
-          </Link>
+          <span>Welcome, {currentUser.username}</span>
+          <button onClick={signOut}>Sign Out</button>
         </div>
       </header>
 
@@ -36,46 +49,66 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="dashboard-links">
-        <Link to="/admin/users" className="dashboard-link">
-          Manage Users
-        </Link>
-        <Link to="/admin/items" className="dashboard-link">
-          Manage Items
-        </Link>
-      </div>
+      <div className="sections">
+        <section>
+          <h2>Users</h2>
+          <UserList />
+        </section>
 
-      <div className="recent-data">
-        <div className="data-section">
-          <h3>Recent Users</h3>
-          <ul>
-            {users.slice(0, 5).map((user) => (
-              <li key={user.id}>
-                {user.username} - {user.role}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="data-section">
-          <h3>Recent Items</h3>
-          <ul>
-            {items.slice(0, 5).map((item) => (
-              <li key={item.id}>
-                {item.nama} - Rp{item.hargaItem.toLocaleString()}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="data-section">
-          <h3>Recent Transactions</h3>
-          <ul>
-            {trans.slice(0, 5).map((t) => (
-              <li key={t.id}>
-                {t.buyId} - Rp{t.total.toLocaleString()}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <section>
+          <h2>Items</h2>
+          <ItemList />
+        </section>
+
+        <section>
+          <h2>Transactions</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Buy ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Payment Method</th>
+              </tr>
+            </thead>
+            <tbody>
+              {trans.map((tran) => (
+                <tr key={tran.id}>
+                  <td>{tran.id}</td>
+                  <td>{tran.buyId}</td>
+                  <td>{tran.buyTanggal}</td>
+                  <td>{tran.total}</td>
+                  <td>{tran.bayarCara}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Addresses</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Phone</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              {alamat.map((addr) => (
+                <tr key={addr.id}>
+                  <td>{addr.id}</td>
+                  <td>{addr.userId}</td>
+                  <td>{addr.phone}</td>
+                  <td>{addr.alamat}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
       </div>
     </div>
   );

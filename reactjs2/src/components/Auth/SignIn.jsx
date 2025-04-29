@@ -1,29 +1,19 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { dispatch, login } = useAppContext();
+  const { signIn } = useAppContext();
   const navigate = useNavigate();
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch({ type: 'LOGIN', payload: { username, password } });
-  //   const user = JSON.parse(localStorage.getItem('currentUser'));
-  //   if (user) {
-  //     if (user.role === 'admin') navigate('/admin');
-  //     else if (user.role === 'kasir') navigate('/kasir');
-  //     else navigate('/pelanggan');
-  //   }
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (login(username, password)) {
-      navigate('/admin');
+    const user = signIn(username, password);
+    if (user) {
+      navigate(`/${user.role}-dashboard`);
     } else {
       setError('Invalid username or password');
     }
@@ -32,9 +22,10 @@ const SignIn = () => {
   return (
     <div className="auth-container">
       <h2>Sign In</h2>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Username</label>
+          <label>Username:</label>
           <input
             type="text"
             value={username}
@@ -43,7 +34,7 @@ const SignIn = () => {
           />
         </div>
         <div className="form-group">
-          <label>Password</label>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
@@ -54,7 +45,7 @@ const SignIn = () => {
         <button type="submit">Sign In</button>
       </form>
       <p>
-        Don't have an account? <Link to="/signup">Sign Up</Link>
+        Don't have an account? <a href="/signup">Sign Up</a>
       </p>
     </div>
   );

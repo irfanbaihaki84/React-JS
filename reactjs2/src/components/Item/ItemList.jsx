@@ -1,30 +1,16 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
+import Item from './Item';
 
 const ItemList = () => {
-  const { state, dispatch } = useAppContext();
-  const { items } = state;
-
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      dispatch({ type: 'DELETE_ITEM', payload: id });
-    }
-  };
+  const { items } = useAppContext();
+  const navigate = useNavigate();
 
   return (
-    <div className="list-container">
-      <div className="list-header">
-        <div>
-          <h2>Item List</h2>
-          <Link to="/admin" className="btn-edit">
-            Back
-          </Link>
-        </div>
-        <Link to="/admin/items/add" className="btn-add">
-          Add New Item
-        </Link>
-      </div>
-      <table className="data-table">
+    <div>
+      <button onClick={() => navigate('/add-item')}>Add New Item</button>
+      <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -37,24 +23,7 @@ const ItemList = () => {
         </thead>
         <tbody>
           {items.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.nama}</td>
-              <td>Rp{item.hargaItem.toLocaleString()}</td>
-              <td>{item.isActive ? 'Active' : 'Inactive'}</td>
-              <td>{item.created_At}</td>
-              <td className="actions">
-                <Link to={`/admin/items/edit/${item.id}`} className="btn-edit">
-                  Edit
-                </Link>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="btn-delete"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
+            <Item key={item.id} item={item} />
           ))}
         </tbody>
       </table>
