@@ -43,6 +43,10 @@ const Budgets = () => {
         typeof formData.amount === 'string'
           ? parseFloat(formData.amount) || 0
           : formData.amount,
+      categoryId:
+        typeof formData.categoryId === 'string'
+          ? parseFloat(formData.categoryId) || 0
+          : formData.categoryId,
     };
     // const budgetData = {
     //   ...formData,

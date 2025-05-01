@@ -123,7 +123,7 @@ const Reports = () => {
 
           <div className="card">
             <h4>Pengeluaran</h4>
-            <p className="income">{formatCurrency(expenses)}</p>
+            <p className="expense">{formatCurrency(expenses)}</p>
             {/* <p className="expense">- Rp{expenses.toLocaleString()}</p> */}
           </div>
 
