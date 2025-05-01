@@ -60,9 +60,11 @@ const Reports = () => {
       }
 
       if (t.type === 'income') {
-        monthlyData[monthYear].income += t.amount;
+        monthlyData[monthYear].income += t.total;
+        // monthlyData[monthYear].income += t.amount;
       } else {
-        monthlyData[monthYear].expense += t.amount;
+        monthlyData[monthYear].expense += t.total;
+        // monthlyData[monthYear].expense += t.amount;
       }
     });
 
@@ -88,15 +90,15 @@ const Reports = () => {
         <div className="summary-cards">
           <div className="card income">
             <span>Pendapatan</span>
-            <p>{income.toLocaleString()}</p>
+            <p>{income.toLocaleString('id-ID')}</p>
           </div>
           <div className="card expense">
             <span>Pengeluaran</span>
-            <p>{expense.toLocaleString()}</p>
+            <p>{expense.toLocaleString('id-ID')}</p>
           </div>
           <div className="card balance">
             <span>Saldo</span>
-            <p>{balance.toLocaleString()}</p>
+            <p>{balance.toLocaleString('id-ID')}</p>
           </div>
         </div>
       </div>

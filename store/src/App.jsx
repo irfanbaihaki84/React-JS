@@ -8,6 +8,8 @@ import Transactions from './components/Transactions';
 import Reports from './components/Reports';
 import Settings from './components/Settings';
 import './App.css';
+import SalesTransaction from './components/SalesTransaction';
+import PurchaseTransaction from './components/PurchaseTansaction';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/sales" element={<SalesTransaction />} />
+              <Route path="/purchases" element={<PurchaseTransaction />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/settings" element={<Settings />} />

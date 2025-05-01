@@ -119,17 +119,12 @@ const Products = () => {
               </option>
             ))}
           </select>
-          {/* <input
-          type="text"
-          name="category"
-          value={newProduct.category}
-          onChange={handleInputChange}
-          placeholder="Kategori"
-        /> */}
         </div>
+
         <button type="submit">
           {editingId ? 'Update Produk' : 'Tambah Produk'}
         </button>
+
         {editingId && (
           <button
             type="button"

@@ -5,9 +5,6 @@ const Settings = () => {
   const { businessInfo, setBusinessInfo, categories, setCategories } =
     useStore();
   const [newCategory, setNewCategory] = useState('');
-  // const [newCategory, setNewCategory] = useState({
-  //   name: newCategory || '',
-  // });
   const [businessForm, setBusinessForm] = useState({
     name: businessInfo.name || '',
     address: businessInfo.address || '',
@@ -37,10 +34,6 @@ const Settings = () => {
     } else {
       setNewCategory('');
     }
-    // if (newCategory.trim() && !categories.includes(newCategory.trim())) {
-    //   setCategories([...categories, newCategory.trim()]);
-    //   setNewCategory('');
-    // }
   };
 
   const removeCategory = (categoryToRemove) => {

@@ -55,11 +55,14 @@ const Dashboard = () => {
         <h3>Transaksi Terakhir</h3>
         {transactions.slice(0, 5).map((transaction) => (
           <div key={transaction.id} className="transaction-item">
-            <span>{new Date(transaction.date).toLocaleDateString()}</span>
+            <span>
+              {new Date(transaction.date).toLocaleDateString('id-ID')}
+            </span>
             <span>
               {transaction.type === 'income' ? 'Pemasukan' : 'Pengeluaran'}
             </span>
-            <span>{transaction.amount.toLocaleString()}</span>
+            <span>{transaction.total.toLocaleString()}</span>
+            {/* <span>{transaction.amount.toLocaleString()}</span> */}
           </div>
         ))}
       </div>

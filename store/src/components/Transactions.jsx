@@ -109,14 +109,6 @@ const Transactions = () => {
             placeholder="Jumlah Uang"
             required
           />
-          {/* <input
-          type="number"
-          name="amount"
-          value={newTransaction.amount}
-          onChange={handleInputChange}
-          placeholder="Jumlah Uang"
-          required
-        /> */}
         </div>
 
         <div className="form-group">
@@ -151,9 +143,10 @@ const Transactions = () => {
               const product = products.find(
                 (p) => p.id === transaction.productId
               );
+
               return (
                 <tr key={transaction.id}>
-                  <td>{new Date(transaction.date).toLocaleString()}</td>
+                  <td>{new Date(transaction.date).toLocaleString('id-ID')}</td>
                   <td>
                     {transaction.type === 'income'
                       ? 'Pemasukan'
@@ -161,8 +154,10 @@ const Transactions = () => {
                   </td>
                   <td>{product ? product.name : '-'}</td>
                   <td>{transaction.quantity || '-'}</td>
-                  <td>{transaction.amount.toLocaleString()}</td>
-                  <td>{transaction.description}</td>
+                  <td>{transaction.total.toLocaleString('id-ID')}</td>
+                  {/* <td>{transaction.amount.toLocaleString('id-ID')}</td> */}
+                  <td>{transaction?.customerName || transaction?.supplier}</td>
+                  {/* <td>{transaction.description}</td> */}
                 </tr>
               );
             })}

@@ -26,6 +26,18 @@ const Navigation = () => {
             <span>Produk</span>
           </Link>
         </li>
+        <li className={location.pathname === '/sales' ? 'active' : ''}>
+          <Link to="/sales">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            <span>Sales</span>
+          </Link>
+        </li>
+        <li className={location.pathname === '/purchases' ? 'active' : ''}>
+          <Link to="/purchases">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Purchases</span>
+          </Link>
+        </li>
         <li className={location.pathname === '/transactions' ? 'active' : ''}>
           <Link to="/transactions">
             <i className="fas fa-exchange-alt"></i>
