@@ -188,7 +188,6 @@ const PurchaseTransaction = () => {
             />
           </div>
         )}
-
         <div className="form-group">
           <label>Harga Beli (Net Price)</label>
           <input
@@ -200,7 +199,6 @@ const PurchaseTransaction = () => {
             required
           />
         </div>
-
         {newProductMode && (
           <div className="form-group">
             <label>Harga Jual</label>
@@ -214,7 +212,6 @@ const PurchaseTransaction = () => {
             />
           </div>
         )}
-
         <div className="form-group">
           <label>Jumlah</label>
           <input
@@ -226,7 +223,6 @@ const PurchaseTransaction = () => {
             required
           />
         </div>
-
         <div className="form-group">
           <label>Total Pembelian</label>
           <input
@@ -235,6 +231,36 @@ const PurchaseTransaction = () => {
             readOnly
           />
         </div>
+        {/* {newProductMode && (
+          <div className="form-group">
+            <label>Category</label>
+            <input
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+        )} */}
+
+        {/* <div className="form-group">
+          <label>Supplier</label>
+          <select
+            name="supplierId"
+            value={formData.supplierId || ''}
+            onChange={handleInputChange}
+          >
+            <option value="">Supplier Umum</option>
+            {contacts
+              .filter((c) => c.type === 'supplier')
+              .map((supplier) => (
+                <option key={supplier.id} value={supplier.id}>
+                  {supplier.name}
+                </option>
+              ))}
+          </select>
+        </div> */}
 
         <div className="form-group">
           <label>Supplier</label>
@@ -245,7 +271,6 @@ const PurchaseTransaction = () => {
             onChange={handleInputChange}
           />
         </div>
-
         <button type="submit" className="submit-btn">
           Catat Pembelian
         </button>

@@ -12,7 +12,8 @@ import {
 } from 'recharts';
 
 const Reports = () => {
-  const { products, transactions, getFinancialSummary } = useStore();
+  const { products, transactions, getFinancialSummary, categories } =
+    useStore();
   const { income, expense, balance } = getFinancialSummary();
 
   // Data untuk chart pendapatan vs pengeluaran
@@ -34,6 +35,7 @@ const Reports = () => {
         }
         productSales[t.productId] += t.quantity;
       });
+    // console.log(productSales);
 
     return Object.entries(productSales)
       .map(([productId, total]) => {
@@ -142,16 +144,23 @@ const Reports = () => {
           <thead>
             <tr>
               <th>Produk</th>
+              {/* <th>Produk ID</th> */}
               <th>Jumlah Terjual</th>
             </tr>
           </thead>
           <tbody>
-            {getTopProducts().map((product, index) => (
-              <tr key={index}>
-                <td>{product.name}</td>
-                <td>{product.total}</td>
-              </tr>
-            ))}
+            {getTopProducts().map((product, index) => {
+              // const prod = products.find((c) => c.id === product.name);
+              // const category = categories.find((c) => c.id === prod.categoryId);
+
+              return (
+                <tr key={index}>
+                  <td>{product.name}</td>
+                  {/* <td>{category.name}</td> */}
+                  <td>{product.total}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

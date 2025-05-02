@@ -10,6 +10,8 @@ import Settings from './components/Settings';
 import './App.css';
 import SalesTransaction from './components/SalesTransaction';
 import PurchaseTransaction from './components/PurchaseTansaction';
+import StockHistory from './components/StockHistory';
+import CustomerSupplier from './components/ManajemenCustomerSupplier';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/stock-history" element={<StockHistory />} />
+              <Route path="/contacts" element={<CustomerSupplier />} />
             </Routes>
           </div>
         </div>

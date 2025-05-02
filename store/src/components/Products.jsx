@@ -148,6 +148,7 @@ const Products = () => {
               <th>Harga Net</th>
               <th>Harga</th>
               <th>Stok</th>
+              <th>Jumlah</th>
               <th>Kategori</th>
               <th>Aksi</th>
             </tr>
@@ -160,11 +161,14 @@ const Products = () => {
 
               return (
                 <tr key={product.id}>
-                  <td>{product.name}</td>
+                  <td>{product.name.toUpperCase()}</td>
                   <td>{product.netPrice.toLocaleString('id-ID')}</td>
                   <td>{product.price.toLocaleString('id-ID')}</td>
                   <td>{product.stock}</td>
-                  <td>{category?.name || 'Unknown'}</td>
+                  <td>
+                    {(product.stock * product.netPrice).toLocaleString('id-ID')}
+                  </td>
+                  <td>{category?.name.toUpperCase() || 'Unknown'}</td>
                   <td>
                     <button onClick={() => handleEdit(product)}>Edit</button>
                     <button onClick={() => deleteProduct(product.id)}>

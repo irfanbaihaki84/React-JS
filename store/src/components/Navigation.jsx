@@ -28,13 +28,13 @@ const Navigation = () => {
         </li>
         <li className={location.pathname === '/sales' ? 'active' : ''}>
           <Link to="/sales">
-            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            <i className="fa-solid fa-arrow-right-to-bracket"></i>
             <span>Sales</span>
           </Link>
         </li>
         <li className={location.pathname === '/purchases' ? 'active' : ''}>
           <Link to="/purchases">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <i className="fa-solid fa-arrow-right-from-bracket"></i>
             <span>Purchases</span>
           </Link>
         </li>
@@ -42,6 +42,18 @@ const Navigation = () => {
           <Link to="/transactions">
             <i className="fas fa-exchange-alt"></i>
             <span>Transaksi</span>
+          </Link>
+        </li>
+        <li className={location.pathname === '/stock-history' ? 'active' : ''}>
+          <Link to="/stock-history">
+            <i className="fas fa-exchange-alt"></i>
+            <span>Stock History</span>
+          </Link>
+        </li>
+        <li className={location.pathname === '/contacts' ? 'active' : ''}>
+          <Link to="/contacts">
+            <i className="fas fa-exchange-alt"></i>
+            <span>Manajemen Customer & Supplier</span>
           </Link>
         </li>
         <li className={location.pathname === '/reports' ? 'active' : ''}>

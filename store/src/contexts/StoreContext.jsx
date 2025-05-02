@@ -59,6 +59,7 @@ export const StoreProvider = ({ children }) => {
       (sum, n) => sum + n.netPrice * n.stock,
       0
     );
+    // console.log(products.reduce((sum, n) => (sum = n.netPrice * n.stock), 0));
     // console.log(products.reduce((sum, n) => sum + n.netPrice * n.stock, 0));
     return { productsNetModal };
   };

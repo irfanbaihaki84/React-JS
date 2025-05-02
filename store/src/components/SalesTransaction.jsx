@@ -114,7 +114,6 @@ const SalesTransaction = () => {
               ))}
           </select>
         </div>
-
         <div className="form-group">
           <label>Harga Satuan</label>
           <input
@@ -123,7 +122,6 @@ const SalesTransaction = () => {
             readOnly
           />
         </div>
-
         <div className="form-group">
           <label>Jumlah</label>
           <input
@@ -140,7 +138,6 @@ const SalesTransaction = () => {
             </span>
           )}
         </div>
-
         <div className="form-group">
           <label>Total</label>
           <input
@@ -149,7 +146,6 @@ const SalesTransaction = () => {
             readOnly
           />
         </div>
-
         <div className="form-group">
           <label>Metode Pembayaran</label>
           <select
@@ -165,6 +161,24 @@ const SalesTransaction = () => {
           </select>
         </div>
 
+        {/* <div className="form-group">
+          <label>Pelanggan</label>
+          <select
+            name="customerId"
+            value={formData.customerId || ''}
+            onChange={handleInputChange}
+          >
+            <option value="">Umum/Tanpa Nama</option>
+            {contacts
+              .filter((c) => c.type === 'customer')
+              .map((customer) => (
+                <option key={customer.id} value={customer.id}>
+                  {customer.name}
+                </option>
+              ))}
+          </select>
+        </div> */}
+
         <div className="form-group">
           <label>Nama Pelanggan (Opsional)</label>
           <input
@@ -174,7 +188,6 @@ const SalesTransaction = () => {
             onChange={handleInputChange}
           />
         </div>
-
         <button type="submit" className="submit-btn">
           Catat Penjualan
         </button>

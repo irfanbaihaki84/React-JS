@@ -152,7 +152,9 @@ const Transactions = () => {
                       ? 'Pemasukan'
                       : 'Pengeluaran'}
                   </td>
-                  <td>{product ? product.name : '-'}</td>
+                  <td>
+                    {product ? product.name : transaction.productName || '-'}
+                  </td>
                   <td>{transaction.quantity || '-'}</td>
                   <td>{transaction.total.toLocaleString('id-ID')}</td>
                   {/* <td>{transaction.amount.toLocaleString('id-ID')}</td> */}
