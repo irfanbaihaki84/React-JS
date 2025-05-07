@@ -1,0 +1,45 @@
+.chef-dashboard {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  padding: 20px;
+  height: 100%;
+}
+
+.chef-header {
+  background: #e67e22;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+}
+
+.chef-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.chef-content {
+  overflow-y: auto;
+}
+
+.current-orders,
+.order-queue {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.no-orders {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+}
